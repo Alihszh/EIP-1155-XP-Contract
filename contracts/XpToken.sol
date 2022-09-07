@@ -9,7 +9,7 @@ contract XpToken is ERC1155, ERC1155Burnable, Ownable {
     uint256 public constant XP = 0;
     address public accountZero;
 
-    mapping(address => uint256) NFT_XP;
+    mapping(address => uint256) NFT_XP; //This value should be in NFT_Tracker and then that contract should work with this one usign proxy
 
     constructor() ERC1155("") {}
 
@@ -17,8 +17,12 @@ contract XpToken is ERC1155, ERC1155Burnable, Ownable {
         _mint(to, XP, amount, "");
     }
 
-    function assign_xp_toNFT(address account, address nftID, uint256 amount) public onlyOwner {
-        require(amount <= balance_xp(account) , "XP amount exceeds balance");
+    function assign_xp_toNFT(
+        address account,
+        address nftID,
+        uint256 amount
+    ) public onlyOwner {
+        require(amount <= balance_xp(account), "XP amount exceeds balance");
         NFT_XP[nftID] += amount;
         transfer(account, amount);
     }
@@ -27,8 +31,7 @@ contract XpToken is ERC1155, ERC1155Burnable, Ownable {
         return balanceOf(account, XP);
     }
 
-    function transfer(address account , uint256 amount) public onlyOwner{
-        safeTransferFrom(account, accountZero, XP, amount, "");
+    function transfer(address account, uint256 amount) public onlyOwner {
+        safeTransferFrom(account, accountZero, XP, amount, ""); //Modify safeTransfer in a way so can only owner can do it.
     }
-
 }
