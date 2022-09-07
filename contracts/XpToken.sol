@@ -8,6 +8,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract XpToken is ERC1155, ERC1155Burnable, Ownable {
     uint256 public constant XP = 0;
 
+    mapping(address => uint256) NFT_XP;
+
     constructor() ERC1155("") {}
 
     function mint(uint256 amount) public onlyOwner {
@@ -22,7 +24,10 @@ contract XpToken is ERC1155, ERC1155Burnable, Ownable {
         return balanceOf(account, XP);
     }
 
-    function burn_XP(address account, uint256 amount) public onlyOwner {
+    function burn_XP(address account, uint256 amount, uint256 flag) public onlyOwner {
+        if(flag==1){
+            NFT_XP[account] +=amount;
+        }
         _burn(account, XP, amount);
     }
 }
