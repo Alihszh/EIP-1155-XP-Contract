@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract NFT_Tracker is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private NFT_ID;
+    
     mapping(uint256 => mapping(address => uint256)) public owners;
 
     constructor() ERC721("", "") {}
