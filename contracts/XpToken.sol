@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 
 contract XpToken is ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
-    address public accountZero;
+    address public accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2;
 
     mapping(address => uint256) NFT_XP; //This value should be in NFT_Tracker and then that contract should work with this one usign proxy
 

@@ -25,7 +25,7 @@
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
-const privateKey = "5718309b4aec533a28d75b9fd4f30b2c52e470eab5289e2603ea437761b42ceb";
+const privateKey = "9622cc6b74b1f45e48ec58d2d92f5bce8ad3afadf92035f2ca3ece00dc6ecac2";
 
 
 module.exports = {
@@ -46,11 +46,11 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+    development: {
+      host: "localhost",     // Localhost (default: none)
+      port: 7545,            // Standard Ethereum port (default: none)
+      network_id: "5777",       // Any network (default: none)
+    },
     //
     // An additional network, but with some advanced options…
     // advanced: {
