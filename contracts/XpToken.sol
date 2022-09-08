@@ -3,9 +3,8 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract XpToken is ERC1155, ERC1155Burnable, Ownable {
+contract XpToken is ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
     address public accountZero;
 
@@ -32,6 +31,6 @@ contract XpToken is ERC1155, ERC1155Burnable, Ownable {
     }
 
     function transfer(address account, uint256 amount) public onlyOwner {
-        safeTransferFrom(account, accountZero, XP, amount, ""); //Modify safeTransfer in a way so can only owner can do it.
+        safeTransferFrom(account, accountZero, XP, amount, "");
     }
 }
