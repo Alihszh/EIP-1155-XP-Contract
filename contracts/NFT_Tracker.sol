@@ -27,6 +27,7 @@ contract NFT_Tracker is ERC721, Ownable {
         uint256 nftID,
         uint256 XP
     ) external onlyOwner onlyOwner {
+        require(msg.sender == account , "Your are not NFT owner");
         owners[nftID][account] += XP;
     }
 
