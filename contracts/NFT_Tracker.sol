@@ -17,12 +17,16 @@ contract NFT_Tracker is ERC721, Ownable {
         return ownerOf(tokenId);
     }
 
-    function mapNFT(address account, uint256 XP) external onlyOwner onlyOwner{
+    function mapNFT(address account, uint256 XP) external onlyOwner onlyOwner {
         owners[NFT_ID.current()][account] = XP;
         NFT_ID.increment();
     }
 
-    function xpToNFT(address account, uint256 nftID, uint256 XP) external onlyOwner onlyOwner{
+    function xpToNFT(
+        address account,
+        uint256 nftID,
+        uint256 XP
+    ) external onlyOwner onlyOwner {
         owners[nftID][account] += XP;
     }
 
