@@ -3,12 +3,12 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
+import "./NFT_Tracker.sol";
 
 contract XpToken is ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
-    address public accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2;
-
-    mapping(address => uint256) NFT_XP; //This value should be in NFT_Tracker and then that contract should work with this one usign proxy
+    address public accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
+    address public NFT_Tracker_Address; //nft_tracker address
 
     constructor() ERC1155("") {}
 
@@ -18,11 +18,11 @@ contract XpToken is ERC1155, ERC1155Burnable {
 
     function assign_xp_toNFT(
         address account,
-        address nftID,
+        uint256 nftID,
         uint256 amount
     ) public onlyOwner {
         require(amount <= balance_xp(account), "XP amount exceeds balance");
-        NFT_XP[nftID] += amount;
+        NFT_Tracker(NFT_Tracker_Address).xpToNFT(account, nftID, XP);
         transfer(account, amount);
     }
 
