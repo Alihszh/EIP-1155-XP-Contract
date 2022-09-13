@@ -33,4 +33,10 @@ contract XpToken is ERC1155, ERC1155Burnable {
     function transfer(address account, uint256 amount) public onlyOwner {
         safeTransferFrom(account, accountZero, XP, amount, "");
     }
+
+    ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
+    function setAdress(address nft_tracker_address) public onlyOwner {
+        NFT_Tracker_Address = nft_tracker_address;
+    }
+    //////////////////////////////////////////////////////////////////////////////////
 }
