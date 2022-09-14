@@ -14,10 +14,6 @@ contract nft_explorer is ERC721, Ownable {
 
     constructor() ERC721("", "") {}
 
-    function OwnerOf(uint256 tokenId) public view returns (address) {
-        return ownerOf(tokenId);
-    }
-
     function mapNFT(address account, uint256 XP) external {
         owners[_nftID.current()][account] = XP;
         _nftID.increment();
@@ -27,13 +23,10 @@ contract nft_explorer is ERC721, Ownable {
         address account,
         uint256 nftID,
         uint256 XP
-    ) external {
+    ) external returns (bool) {
         require(msg.sender == ownerOf(nftID), "Your are not NFT owner");
         owners[nftID][account] += XP;
-    }
-
-    function check() public view returns (address) {
-        return msg.sender;
+        return true;
     }
 
     function XpAmount(uint256 nftID, address account)
