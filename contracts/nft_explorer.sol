@@ -32,7 +32,10 @@ contract nft_explorer is ERC721, Ownable {
         uint256 xp
     ) external returns (bool) {
         require(from == owners[nftID].Address, "Your are not NFT owner");
-        require(msg.sender == _XpTokenAddress, "msg sender should be the XpToken");
+        require(
+            msg.sender == _XpTokenAddress,
+            "msg sender should be the XpToken"
+        );
         owners[nftID].XP += xp;
         return true;
     }

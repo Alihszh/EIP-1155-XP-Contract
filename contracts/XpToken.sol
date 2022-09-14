@@ -23,12 +23,12 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         uint256 amount
     ) public {
         require(amount <= balance_xp(from), "XP amount exceeds balance");
-        if (nft_explorer(_nftExplorerAddress).xpToNFT(from,nftID, XP)) {
+        if (nft_explorer(_nftExplorerAddress).xpToNFT(from, nftID, amount)) {
             transfer(from, amount);
         }
     }
- 
-    function call() public view returns(address){
+
+    function call() public view returns (address) {
         return nft_explorer(_nftExplorerAddress).msgSender();
     }
 
