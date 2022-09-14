@@ -44,10 +44,6 @@ contract nft_explorer is ERC721, Ownable {
         return owners[nftID].Address;
     }
 
-    function msgSender() external view returns (address) {
-        return msg.sender;
-    }
-
     function XpAmount(uint256 nftID) public view returns (uint256) {
         return owners[nftID].XP;
     }
