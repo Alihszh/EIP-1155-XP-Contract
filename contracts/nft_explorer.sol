@@ -10,30 +10,49 @@ contract nft_explorer is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _nftID;
 
-    mapping(uint256 => mapping(address => uint256)) public owners;
+    struct data {
+        address Address;
+        uint256 XP;
+    }
+
+    mapping(uint256 => data) public owners;
+    address public _XpTokenAddress;
 
     constructor() ERC721("", "") {}
 
-    function mapNFT(address account, uint256 XP) external {
-        owners[_nftID.current()][account] = XP;
+    function mapNFT(address add, uint256 xp) external {
+        owners[_nftID.current()].Address = add;
+        owners[_nftID.current()].XP = xp;
         _nftID.increment();
     }
 
     function xpToNFT(
-        address account,
+        address from,
         uint256 nftID,
         uint256 XP
     ) external returns (bool) {
-        require(msg.sender == ownerOf(nftID), "Your are not NFT owner");
-        owners[nftID][account] += XP;
+        require(from == owners[nftID].Address, "Your are not NFT owner");
+        require(
+            msg.sender == _XpTokenAddress,
+            "msg sender should be the XpToken"
+        );
+        owners[nftID].XP += XP;
         return true;
     }
 
-    function XpAmount(uint256 nftID, address account)
-        public
-        view
-        returns (uint256)
-    {
-        return owners[nftID][account];
+    function nftOwner(uint256 nftID) public view returns (address) {
+        return owners[nftID].Address;
+    }
+
+    function msgSender() external view returns (address) {
+        return msg.sender;
+    }
+
+    function XpAmount(uint256 nftID) public view returns (uint256) {
+        return owners[nftID].XP;
+    }
+
+    function setAddress(address add) public onlyOwner {
+        _XpTokenAddress = add;
     }
 }
