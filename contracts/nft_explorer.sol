@@ -28,8 +28,12 @@ contract nft_explorer is ERC721, Ownable {
         uint256 nftID,
         uint256 XP
     ) external {
-        require(msg.sender == account, "Your are not NFT owner");
+        require(msg.sender == ownerOf(nftID), "Your are not NFT owner");
         owners[nftID][account] += XP;
+    }
+
+    function check() public view returns (address) {
+        return msg.sender;
     }
 
     function XpAmount(uint256 nftID, address account)

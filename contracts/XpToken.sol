@@ -2,10 +2,11 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "./nft_explorer.sol";
 
-contract XpToken is ERC1155, ERC1155Burnable {
+contract XpToken is Ownable, ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
     address public _accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
     address public _nftExplorerAddress; //nft_explorer address
@@ -30,7 +31,7 @@ contract XpToken is ERC1155, ERC1155Burnable {
         return balanceOf(account, XP);
     }
 
-    function transfer(address account, uint256 amount) public onlyOwner {
+    function transfer(address account, uint256 amount) public {
         safeTransferFrom(account, _accountZero, XP, amount, "");
     }
 
