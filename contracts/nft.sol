@@ -21,7 +21,7 @@ contract nft is ERC721, ERC721URIStorage, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        nft_explorer(_nftExplorerAddress).mapNFT(to, 1111); /// xp value ,should change
+        nft_explorer(_nftExplorerAddress).mapNFT(to, 3111); /// xp value ,should change
     }
 
     // The following functions are overrides required by Solidity.
