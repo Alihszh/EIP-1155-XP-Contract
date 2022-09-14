@@ -27,7 +27,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
             transfer(from, amount);
         }
     }
-
+ 
     function call() public view returns(address){
         return nft_explorer(_nftExplorerAddress).msgSender();
     }
