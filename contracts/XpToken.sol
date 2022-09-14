@@ -3,12 +3,12 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-import "./NFT_Tracker.sol";
+import "./nft_explorer.sol";
 
 contract XpToken is ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
-    address public accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
-    address public NFT_Tracker_Address; //nft_tracker address
+    address public _accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
+    address public _nftExplorerAddress; //nft_explorer address
 
     constructor() ERC1155("") {}
 
@@ -22,7 +22,7 @@ contract XpToken is ERC1155, ERC1155Burnable {
         uint256 amount
     ) public onlyOwner {
         require(amount <= balance_xp(account), "XP amount exceeds balance");
-        NFT_Tracker(NFT_Tracker_Address).xpToNFT(account, nftID, XP);
+        nft_explorer(_nftExplorerAddress).xpToNFT(account, nftID, XP);
         transfer(account, amount);
     }
 
@@ -31,12 +31,12 @@ contract XpToken is ERC1155, ERC1155Burnable {
     }
 
     function transfer(address account, uint256 amount) public onlyOwner {
-        safeTransferFrom(account, accountZero, XP, amount, "");
+        safeTransferFrom(account, _accountZero, XP, amount, "");
     }
 
     ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
     function setAdress(address nft_tracker_address) public onlyOwner {
-        NFT_Tracker_Address = nft_tracker_address;
+        _nftExplorerAddress = nft_tracker_address;
     }
     //////////////////////////////////////////////////////////////////////////////////
 }

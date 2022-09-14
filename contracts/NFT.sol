@@ -3,15 +3,16 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./NFT_Tracker.sol";
+import "./nft_explorer.sol";
 
-contract NFT is ERC721, ERC721URIStorage, Ownable {
+contract nft is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    address public NFT_Tracker_Address; //nft_tracker address
+    address public _nftExplorerAddress; //nft explorer address
 
     constructor() ERC721("MyToken", "MTK") {}
 
@@ -20,7 +21,7 @@ contract NFT is ERC721, ERC721URIStorage, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        NFT_Tracker(NFT_Tracker_Address).mapNFT(to, 85);
+        nft_explorer(_nftExplorerAddress).mapNFT(to, 1111); /// xp value ,should change
     }
 
     // The following functions are overrides required by Solidity.
@@ -42,8 +43,8 @@ contract NFT is ERC721, ERC721URIStorage, Ownable {
     }
 
     /////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
-    function setAdress(address nft_tracker_address) public onlyOwner {
-        NFT_Tracker_Address = nft_tracker_address;
+    function set(address nft_tracker_address) public onlyOwner {
+        _nftExplorerAddress = nft_tracker_address;
     }
     ////////////////////////////////////////////////////////////////////////////////////
 }
