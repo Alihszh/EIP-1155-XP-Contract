@@ -13,6 +13,15 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
 
     constructor() ERC1155("") {}
 
+    struct info {
+        uint256 xp;
+        address from;
+        uint16 G_code;
+        uint16 B_code;
+    }
+
+    mapping(uint256 => info) public history;
+
     function assign_xp(address to, uint256 amount) public onlyOwner {
         _mint(to, XP, amount, "");
     }
