@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "./nft_explorer.sol";
 
 contract XpToken is Ownable, ERC1155, ERC1155Burnable {
-    
     uint256 public constant XP = 0;
     address public _accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
     address public _nftExplorerAddress; //nft_explorer address
