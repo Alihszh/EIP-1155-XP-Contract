@@ -17,23 +17,25 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
 
     constructor() ERC1155("") {}
 
-    struct info {
-        address from;
+    struct InfoXP {
         uint16 G_code;
         uint16 B_code;
-        uint256 xp;
+        uint256 counter;
     }
 
-    mapping(uint256 => info) public history;
+    mapping(address => InfoXP[]) public history;
+    
 
-    function assign_xp(address to, uint256 amount, uint16 g_code) public onlyOwner {
-        if(_mint(to, XP, amount, "")){
-            history[_counter.current()].xp = amount;
-            history[_counter.current()].from = to;
-            history[_counter.current()].G_code = g_code;
+    function assign_xp(
+        address to,
+        uint256 amount,
+        uint16 g_code
+    ) public onlyOwner {
+        if (_mint(to, XP, amount, "")) {
+            for (uint256 i = 0; i < amount; i++) {
+                history[to].push(InfoXP(g_code, 0, 0));
+            }
         }
-
-
     }
 
     function assign_xp_toNFT(
@@ -43,7 +45,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
     ) public {
         require(amount <= balance_xp(from), "XP amount exceeds balance");
         if (nft_explorer(_nftExplorerAddress).xpToNFT(from, nftID, amount)) {
-            transfer(from, amount);
+            transfer(from, amount, 9999);
         }
     }
 
@@ -51,8 +53,20 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         return balanceOf(account, XP);
     }
 
-    function transfer(address account, uint256 amount) public {
-        safeTransferFrom(account, _accountZero, XP, amount, "");
+    function transfer(address from, uint256 amount, uint16 b_code) public {
+        require(
+            from == _msgSender(),
+            "ERC1155: caller is not token owner nor approved"
+        );
+        if (balanceOf(from,XP) >= amount) {
+            safeTransferFrom(from, _accountZero, XP, amount, "");
+            uint256 count = history[from][0].counter;
+            for(uint256 i=0 ; i<amount ; i++){
+                history[from][count].B_code = b_code;
+                count++;
+                history[from][0].counter = count;
+            }
+        }
     }
 
     ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
