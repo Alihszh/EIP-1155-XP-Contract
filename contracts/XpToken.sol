@@ -22,6 +22,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
     struct burnedXP {
         address from;
         uint16 G_code;
+        uint256 date;
     }
 
     mapping(address => InfoXP[]) public history;
@@ -70,7 +71,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
                 history[from][count].B_code = b_code;
                 count++;
                 history[from][0].counter = count;
-                burnHistory.push(burnedXP(from, b_code));
+                burnHistory.push(burnedXP(from, b_code, block.timestamp));
             }
         }
     }
