@@ -17,6 +17,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         uint16 G_code;
         uint16 B_code;
         uint256 counter;
+        uint256 XpNumber;
     }
 
     struct burnedXP {
@@ -26,6 +27,16 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
     }
 
     mapping(address => InfoXP[]) public history;
+
+    function getXpDetails(address account)
+        public
+        view
+        returns (InfoXP[] memory)
+    {
+        InfoXP[] memory list = history[account];
+        return list;
+    }
+
     burnedXP[] burnHistory;
 
     function assign_xp(
@@ -34,9 +45,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         uint16 g_code
     ) public onlyOwner {
         if (_mint(to, XP, amount, "")) {
-            for (uint256 i = 0; i < amount; i++) {
-                history[to].push(InfoXP(g_code, 0, 0));
-            }
+            history[to].push(InfoXP(g_code, 0, 0, amount));
         }
     }
 
@@ -74,6 +83,21 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
                 burnHistory.push(burnedXP(from, b_code, block.timestamp));
             }
         }
+    }
+
+    function getXpOwner(uint256 index)
+        public
+        view
+        returns (
+            address,
+            uint16,
+            uint256
+        )
+    {
+        address wallet = burnHistory[index].from;
+        uint16 g_code = burnHistory[index].G_code;
+        uint256 time = burnHistory[index].date;
+        return (wallet, g_code, time);
     }
 
     ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
