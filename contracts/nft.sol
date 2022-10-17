@@ -12,7 +12,7 @@ contract nft is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    address public _nftExplorerAddress; //nft explorer address
+    address public _nftExplorerAddress; //NFT EXPLORER ADDRESS(!!2) --- !!0
 
     constructor() ERC721("MyToken", "MTK") {}
 
@@ -21,7 +21,7 @@ contract nft is ERC721, ERC721URIStorage, Ownable {
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        nft_explorer(_nftExplorerAddress).mapNFT(to, 3111); /// xp value ,should change
+        nft_explorer(_nftExplorerAddress).mapNFT(to, 3111); ///XP VALUE IS JUST HARDCODED --- !!1
     }
 
     // The following functions are overrides required by Solidity.
@@ -42,9 +42,8 @@ contract nft is ERC721, ERC721URIStorage, Ownable {
         return super.tokenURI(tokenId);
     }
 
-    /////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
+    /////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES (!!0) --- !!2
     function set(address nft_tracker_address) public onlyOwner {
         _nftExplorerAddress = nft_tracker_address;
     }
-    ////////////////////////////////////////////////////////////////////////////////////
 }

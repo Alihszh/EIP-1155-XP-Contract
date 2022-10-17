@@ -5,39 +5,15 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "./nft_explorer.sol";
+import "./user.sol";
 
 contract XpToken is Ownable, ERC1155, ERC1155Burnable {
     uint256 public constant XP = 0;
-    address public _accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //wallet which tokens dump at
-    address public _nftExplorerAddress; //nft_explorer address
+    address public _accountZero = 0x55f58b0241728459aC1F26613d4EE6D439A9e7A2; //WALLET WHICH TOKENS DUMP AT --- !!0
+    address public _nftExplorerAddress; //NFT EXPLORER ADDRESS SAVES HERE(!!2) --- !!1
+    address public _userContractAddress; //USER CONTRACT ADDRESS SAVES HERE(!!2) ---
 
     constructor() ERC1155("") {}
-
-    struct InfoXP {
-        uint16 G_code;
-        uint16 B_code;
-        uint256 counter;
-        uint256 XpNumber;
-    }
-
-    struct burnedXP {
-        address from;
-        uint16 G_code;
-        uint256 date;
-    }
-
-    mapping(address => InfoXP[]) public history;
-
-    function getXpDetails(address account)
-        public
-        view
-        returns (InfoXP[] memory)
-    {
-        InfoXP[] memory list = history[account];
-        return list;
-    }
-
-    burnedXP[] burnHistory;
 
     function assign_xp(
         address to,
@@ -45,7 +21,7 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         uint16 g_code
     ) public onlyOwner {
         if (_mint(to, XP, amount, "")) {
-            history[to].push(InfoXP(g_code, 0, 0, amount));
+            user(_userContractAddress).AddXpToGainHistory(to, g_code, amount);
         }
     }
 
@@ -75,34 +51,21 @@ contract XpToken is Ownable, ERC1155, ERC1155Burnable {
         );
         if (balanceOf(from, XP) >= amount) {
             safeTransferFrom(from, _accountZero, XP, amount, "");
-            uint256 count = history[from][0].counter;
-            for (uint256 i = 0; i < amount; i++) {
-                history[from][count].B_code = b_code;
-                count++;
-                history[from][0].counter = count;
-                burnHistory.push(burnedXP(from, b_code, block.timestamp));
-            }
+            user(_userContractAddress).AddXpToBurnList(from, b_code, amount);
         }
     }
 
-    function getXpOwner(uint256 index)
+    ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES(!!1) --- !!2
+    function setNftExplorerAddress(address nft_explorer_address)
         public
-        view
-        returns (
-            address,
-            uint16,
-            uint256
-        )
+        onlyOwner
     {
-        address wallet = burnHistory[index].from;
-        uint16 g_code = burnHistory[index].G_code;
-        uint256 time = burnHistory[index].date;
-        return (wallet, g_code, time);
+        _nftExplorerAddress = nft_explorer_address;
     }
 
-    ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES
-    function setAdress(address nft_tracker_address) public onlyOwner {
-        _nftExplorerAddress = nft_tracker_address;
+    function setUserAddress(address user_contract_address) public onlyOwner {
+        _userContractAddress = user_contract_address;
     }
-    //////////////////////////////////////////////////////////////////////////////////
 }
+
+///////////////CONTRACT IS TO LONG WE SHOULD USE A SEPERATE CONTRACT FOR HISTORY AND INFORMATION --- !!7

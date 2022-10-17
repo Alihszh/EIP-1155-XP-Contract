@@ -16,7 +16,7 @@ contract nft_explorer is ERC721, Ownable {
     }
 
     mapping(uint256 => data) public owners;
-    address public _XpTokenAddress;
+    address public _XpTokenAddress; ///////XpToken ADDRESS SAVES HERE(!!1) --- !!0
 
     constructor() ERC721("", "") {}
 
@@ -48,6 +48,7 @@ contract nft_explorer is ERC721, Ownable {
         return owners[nftID].XP;
     }
 
+    ////////////////////////////////////////////THIS FUNCTION IS JUST FOR TEST PURPOSES(!!0) --- !!1
     function setAddress(address add) public onlyOwner {
         _XpTokenAddress = add;
     }
