@@ -37,6 +37,15 @@ contract user is Ownable {
         return list;
     }
 
+    function GetBurnHistoryList(address account)
+        public
+        view
+        returns (InfoXP[] memory)
+    {
+        InfoXP[] memory list = BurnHistory[account];
+        return list;
+    }
+
     function AddXpToGainHistory(
         address account,
         uint16 g_code,
