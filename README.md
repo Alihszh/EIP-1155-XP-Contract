@@ -15,3 +15,7 @@
 </p>
 
 # XP System based on ERC 1155
+
+### Introduction
+An xp system based on ERC 1155 tokens can be a useful way for users to track their progress and achievements within a particular platform or community. By earning xp tokens and assigning them to their non-fungible tokens (NFTs), users can visually represent their status and accomplishments within the system. Additionally, the ability to burn xp can provide users with the opportunity to access special features or functionality within the platform.
+now we'll explore how an xp system based on ERC 1155 tokens works and how it can be implemented in a safe and secure way.
