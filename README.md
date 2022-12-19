@@ -19,3 +19,9 @@
 ### Introduction
 An xp system based on ERC 1155 tokens can be a useful way for users to track their progress and achievements within a particular platform or community. By earning xp tokens and assigning them to their non-fungible tokens (NFTs), users can visually represent their status and accomplishments within the system. Additionally, the ability to burn xp can provide users with the opportunity to access special features or functionality within the platform.
 now we'll explore how an xp system based on ERC 1155 tokens works and how it can be implemented in a safe and secure way.
+
+### How the xp system works
+In an xp system based on ERC 1155 tokens, users can earn xp by completing tasks or achieving milestones within the platform. These tasks might include things like participating in community discussions, or contributing content to the platform. As users earn xp, they can assign it to their NFT, which serves as a visual representation of their progress and status within the platform.
+
+Users can also burn xp in order to access special features or functionality within the system. For example, they might be able to use xp to access premium features on the dapp. This can provide users with an incentive to earn and accumulate xp, as they can use it to unlock new experiences or functionality within the platform.
+
