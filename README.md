@@ -27,6 +27,7 @@ Users can also burn xp in order to access special features or functionality with
 ### Tracking xp transactions and activities
 To ensure that the xp system is safe and secure, it's important to track all xp transactions and activities within the platform. blockchain nature will provide that for us, it allows for a transparent and immutable record of all xp transactions. This not only provides a level of security and trust within the system, but it also allows for easy querying of xp activities if needed, for example in the event of an unexpected issue or problem.
 
-
+### Conclusion:
+An xp system based on ERC 1155 tokens can be a useful way for users to track their progress and achievements within a particular platform or community. By earning xp and assigning it to their NFTs, users can visually represent their status and accomplishments within the system. The ability to burn xp can also provide users with the opportunity to access special features or functionality within the platform. By tracking all xp transactions and activities, the xp system can be implemented in a safe and secure way.
 
 
